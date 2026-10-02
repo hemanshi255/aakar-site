@@ -1,0 +1,88 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #ffffff;
+  color: #111111;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+@media (max-width: 767px) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+.scroll-reveal {
+  opacity: 0 !important;
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease !important;
+  will-change: opacity, transform;
+}
+
+.scroll-reveal-left {
+  transform: translateX(-60px) !important;
+}
+
+.scroll-reveal-right {
+  transform: translateX(60px) !important;
+}
+
+.scroll-reveal-up {
+  transform: translateY(50px) !important;
+}
+
+.scroll-reveal-scale {
+  transform: scale(0.94) !important;
+}
+
+.scroll-reveal-left.is-visible,
+.scroll-reveal-right.is-visible,
+.scroll-reveal-up.is-visible,
+.scroll-reveal-scale.is-visible {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+.scroll-reveal-up.is-visible {
+  transform: translateY(0) !important;
+}
+
+.scroll-reveal-scale.is-visible {
+  transform: scale(1) !important;
+}
