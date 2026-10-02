@@ -105,7 +105,7 @@ Thank you.
 
     try {
       const response = await fetch(
-        "https://aakar-backend-rcvs.onrender.com/api/contact",
+        "https://aakar-site.onrender.com/api/contact",
         {
           method: "POST",
           headers: {
