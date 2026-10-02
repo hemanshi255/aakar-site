@@ -11,6 +11,14 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+transporter.verify((error, success) => {
+  if (error) {
+    console.error("SMTP verify error:", error);
+  } else {
+    console.log("SMTP server is ready to take our messages");
+  }
+});
+
 const escapeHtml = (value = "") => {
   return String(value).replace(/[&<>"']/g, (character) => {
     const entities = {
