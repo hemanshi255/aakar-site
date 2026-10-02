@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: "http://localhost:3001",
+    origin: "https://aakar-site.vercel.app",
   }),
 );
 
