@@ -1,23 +1,6 @@
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT),
-  secure: false,
-  family: 4,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
-
-transporter.verify((error, success) => {
-  if (error) {
-    console.error("SMTP verify error:", error);
-  } else {
-    console.log("SMTP server is ready to take our messages");
-  }
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const escapeHtml = (value = "") => {
   return String(value).replace(/[&<>"']/g, (character) => {
@@ -80,12 +63,9 @@ const sendContactEmail = async (data) => {
     )
     .join("");
 
-  return transporter.sendMail({
-    from: {
-      name: "Aakar.co Website",
-      address: process.env.SMTP_USER,
-    },
-    to: process.env.SMTP_USER,
+  const { data: emailData, error } = await resend.emails.send({
+    from: "Aakar.co Website <onboarding@resend.dev>",
+    to: [process.env.SMTP_USER],
     replyTo: email,
     subject: `New Project Enquiry — ${name}`,
     text: details.map(([label, value]) => `${label}: ${value}`).join("\n"),
@@ -110,6 +90,15 @@ const sendContactEmail = async (data) => {
       </div>
     `,
   });
+
+  if (error) {
+    console.error("Contact enquiry email error:", error);
+    throw new Error(error.message || "Failed to send contact enquiry email.");
+  }
+
+  console.log("Contact enquiry email sent successfully:", emailData);
+
+  return emailData;
 };
 
 module.exports = sendContactEmail;
